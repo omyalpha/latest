@@ -10,8 +10,8 @@ workflows:
         # FCI_CERTIFICATE_PASSWORD
         # FCI_PROVISIONING_PROFILE
       vars:
-          XCODE_WORKSPACE: Roving\ Care.xcworkspace # <-- Put the name of your workspace here. 
-          XCODE_SCHEME: Roving\ Care # <-- Put the name of your scheme here.
+          XCODE_WORKSPACE: "Roving Care.xcworkspace" # <-- Put the name of your workspace here. 
+          XCODE_SCHEME: "Roving Care" # <-- Put the name of your scheme here.
           BUNDLE_ID: "com.rovingcare.iosapp" # <-- Put your Bundle Id here.
           APP_STORE_APP_ID: 1608815299 # <-- Put the app id number here. This is found in App Store Connect > App > General > App Information
     scripts:
@@ -42,21 +42,21 @@ workflows:
             # when using a password-protected certificate
             keychain add-certificates --certificate /tmp/certificate.p12 --certificate-password $FCI_CERTIFICATE_PASSWORD
           fi 
-      - name: Set up code signing settings on Xcode project
-        script: xcode-project use-profiles
       - name: Add iOS platform
         script: |
           set -e # exit on first failed command
 
           cordova platform remove ios --nosave
           cordova platform add ios --confirm --no-interactive --noresources --save
+      - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles
       - name: Build iOS release
         script: |
           set -e # exit on first failed command
 
           cordova build ios --no-interactive
       - name: Build ipa for distribution
-        script: xcode-project build-ipa --workspace "$FCI_BUILD_DIR/ios/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+        script: xcode-project build-ipa --workspace "$FCI_BUILD_DIR/platforms/ios/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
         #script: xcode-project build-ipa \
         #            --workspace "${XCODE_WORKSPACE?}" \
         #            --scheme "${XCODE_SCHEME?}"
