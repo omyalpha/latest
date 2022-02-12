@@ -39,15 +39,15 @@ workflows:
           else
             # when using a password-protected certificate
             keychain add-certificates --certificate /tmp/certificate.p12 --certificate-password $FCI_CERTIFICATE_PASSWORD
-          fi      
-      - name: Set up code signing settings on Xcode project
-        script: xcode-project use-profiles
+          fi 
       - name: Add iOS platform
         script: |
           set -e # exit on first failed command
 
           cordova platform remove ios --nosave
           cordova platform add ios --confirm --no-interactive --noresources --save
+      - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles
       - name: Build iOS release
         script: |
           set -e # exit on first failed command
