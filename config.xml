@@ -7,7 +7,7 @@
     <author email="info@webhosting.sd" href="http://cordova.io">
         Omar Digna
     </author>
-	    <platform name="ios">
+	<platform name="ios">
         <!-- iOS 8.0+ -->
         <!-- iPhone 6 Plus  -->
         <icon src="www/img/icons/icon-180.png" width="180" height="180" />
