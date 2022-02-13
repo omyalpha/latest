@@ -9,6 +9,12 @@ workflows:
         # FCI_CERTIFICATE
         # FCI_CERTIFICATE_PASSWORD
         # FCI_PROVISIONING_PROFILE
+        - appstore_credentials
+      # Add the above mentioned group environment variables in Codemagic UI (either in Application/Team variables): 
+        # APP_STORE_CONNECT_ISSUER_ID
+        # APP_STORE_CONNECT_KEY_IDENTIFIER
+        # APP_STORE_CONNECT_PRIVATE_KEY 
+        # CERTIFICATE_PRIVATE_KEY
       vars:
           XCODE_WORKSPACE: "Roving Care.xcworkspace" # <-- Put the name of your workspace here. 
           XCODE_SCHEME: "Roving Care" # <-- Put the name of your scheme here.
@@ -62,3 +68,8 @@ workflows:
         #            --scheme "${XCODE_SCHEME?}"
     artifacts:
       - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+          api_key: $APP_STORE_CONNECT_PRIVATE_KEY      # Contents of the API key, can also reference environment variable such as $APP_STORE_CONNECT_PRIVATE_KEY
+          key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER    # Alphanumeric value that identifies the API key, can also reference environment variable such as $APP_STORE_CONNECT_KEY_IDENTIFIER
+          issuer_id:$APP_STORE_CONNECT_ISSUER_ID       # Alphanumeric value that identifies who created the API key, can also reference environment variable such as $APP_STORE_CONNECT_ISSUER_ID
